@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation
 class ParametersHandler {
 
     def handleParameters(Annotation[] annotations)  {
-
+        def result = [:]
+        result
     }
 }
