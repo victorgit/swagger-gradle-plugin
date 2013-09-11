@@ -1,0 +1,34 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+
+def description = 'swagger generator'
+group = 'com.swagger.generator'
+archivesBaseName = 'swagger-gradle-plugin'
+version = '0.2.18'
+
+buildscript {
+    repositories {
+        maven { url 'http://repo.jfrog.org/artifactory/gradle-plugins' }
+    }
+    dependencies {
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.0.16')
+    }
+}
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+  mavenCentral(artifactUrls: ['http://maven.springframework.org/milestone'])
+}
+
+dependencies {
+  compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+  compile("org.reflections:reflections:0.9.8")
+  // testing
+  testCompile "org.spockframework:spock-core:$spockVersion"
+  testCompile 'org.hamcrest:hamcrest-all:1.1'
+}
+
+task wrapper(type: Wrapper) { gradleVersion = '1.7' }
+
