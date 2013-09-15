@@ -13,9 +13,14 @@ import spock.lang.Specification
 import com.wordnik.swagger.jaxrs.*
 import com.wordnik.swagger.jaxrs.reader.*
 
+import javax.ws.rs.Produces
+import javax.ws.rs.core.MediaType
+
 class ParametersHandlerJaxrsSpec extends Specification {
 
     @Api(value = "value", description = "desc")
+    //@Produces ([MediaType.APPLICATION_JSON])
+
     class ApiClass1 {
         def noAnnotationsMethod(String x) {}
         @ApiOperation(value = "valueSimpleMethod", notes = "notesSimpleMethod")
@@ -136,8 +141,8 @@ class ParametersHandlerJaxrsSpec extends Specification {
             println "Result for method $methodName is $result"
             result != null
             result.size() == 1
-            result[0].name == "x"
-            result[0].description == "description"
+            result[0].name == "xSimpleName"
+            result[0].description == "descriptionSimpleValue"
             result[0].required == false
             result[0].allowableValues == null
             result[0].allowMultiple == false
@@ -153,8 +158,8 @@ class ParametersHandlerJaxrsSpec extends Specification {
             println "Result for method $methodName is $result"
             result != null
             result.size() == 1
-            result[0].name == "x"
-            result[0].description == "description"
+            result[0].name == "xAdvancedName"
+            result[0].description == "descriptionAdvancedValue"
             result[0].required == true
             result[0].allowableValues == "range[1,10]"
             result[0].allowMultiple == true
