@@ -18,9 +18,9 @@ import javax.ws.rs.core.MediaType
 
 class ParametersHandlerJaxrsSpec extends Specification {
 
-    @Api(value = "value", description = "desc")
+    @Api(value = "ApiClass1", description = "ApiClass1desc", produces = "application/xml")
     //@Produces ([MediaType.APPLICATION_JSON])
-
+    @Produces("application/json")
     class ApiClass1 {
         def noAnnotationsMethod(String x) {}
         @ApiOperation(value = "valueSimpleMethod", notes = "notesSimpleMethod")
@@ -52,9 +52,19 @@ class ParametersHandlerJaxrsSpec extends Specification {
             def val = c.invokeMethod(k, null)
 
              if (v.name == "scala.collection.immutable.List") {
-                 def s = val.size()
-                 if (s > 0) {
-                     fieldRes[k] = convert(val.apply(0))
+                 def size = val.size()
+                 if (size > 0) {
+                     def listResults = []
+                     for (int i = 0; i < size; i++) {
+                         def result = val.apply(i)
+                         if (result instanceof  String) {
+                             listResults.add(result)
+                         }
+                         else {
+                             listResults.add(convert(result))
+                         }
+                     }
+                     fieldRes[k] = listResults
                  }
                  else fieldRes[k] = ""
              }
